@@ -45,23 +45,39 @@ function App() {
   }
 
   return (
-    <main className="bg-[#06151A]">
+    <main className="bg-[#06151A] min-h-screen pb-10">
       <Header />
       <Banner />
       <EventForm themes={themes} onSubmit={addEvent} />
-      <section className="w-[1000px] m-0 mx-auto">
-        {themes.map((theme) => (
-          <div key={theme.id} className="mb-6">
-            <Theme theme={theme} />
-            <div className="flex gap-3 flex-wrap">
-              {cards
-                .filter((card) => card.theme.id === theme.id)
-                .map((card, index) => (
-                  <CardEvent card={card} key={`${theme.id}-${index}`} />
+
+      <section className="w-full">
+        {themes.map((theme) => {
+          const themeCards = cards.filter((card) => card.theme.id === theme.id);
+
+          if (themeCards.length === 0) return null;
+
+          return (
+            <div key={theme.id} className="mb-10 px-6 md:px-12">
+              <div className="mt-4">
+                <Theme theme={theme} />
+              </div>
+
+              <div className="flex flex-col gap-6 mt-4 md:hidden">
+                {themeCards.map((card, index) => (
+                  <div key={index} className="w-full max-w-xs mx-auto">
+                    <CardEvent card={card} />
+                  </div>
                 ))}
+              </div>
+
+              <div className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-8 mt-4 items-stretch">
+                {themeCards.map((card, index) => (
+                  <CardEvent key={index} card={card} />
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </section>
     </main>
   );

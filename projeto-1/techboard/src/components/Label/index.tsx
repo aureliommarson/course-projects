@@ -5,5 +5,12 @@ export function Label({
   children: React.ReactNode;
   htmlFor: string;
 }) {
-  return <label htmlFor={htmlFor}>{children}</label>;
+  return (
+    <label
+      htmlFor={htmlFor}
+      className="text-white text-[16px] leading-[1.2] font-normal"
+    >
+      {children}
+    </label>
+  );
 }

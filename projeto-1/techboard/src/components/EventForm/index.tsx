@@ -30,7 +30,6 @@ export function EventForm({ themes, onSubmit }: EventFormProps) {
       title: formData.get("nameEvent"),
     };
 
-    console.log(form);
     onSubmit?.(form);
   }
   return (
